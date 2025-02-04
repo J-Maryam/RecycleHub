@@ -1,46 +1,190 @@
-<div class="max-w-md mx-auto bg-white p-8 rounded-lg shadow-md mt-10">
-  <h2 class="text-2xl font-bold text-center text-green-700 mb-6">Créer un compte</h2>
+<!-- register.component.html -->
+<div class="register-container">
+  <div class="register-card">
+    <div class="header">
+      <h2>Join RecycleHub</h2>
+      <p>Step {{currentStep}} of 3</p>
 
-  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="space-y-4">
-    <!-- Nom d'utilisateur -->
-    <div>
-      <label class="block text-sm font-medium text-gray-700">Nom d'utilisateur</label>
-      <input type="text" formControlName="username" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" placeholder="Votre pseudo">
-      <div *ngIf="registerForm.get('username')?.invalid && registerForm.get('username')?.touched" class="text-red-500 text-sm">
-        Le nom d'utilisateur est requis (3 caractères min).
+      <div class="progress-bar">
+        <div class="step" [class.active]="currentStep >= 1"></div>
+        <div class="step" [class.active]="currentStep >= 2"></div>
+        <div class="step" [class.active]="currentStep >= 3"></div>
       </div>
     </div>
 
-    <!-- Email -->
-    <div>
-      <label class="block text-sm font-medium text-gray-700">Email</label>
-      <input type="email" formControlName="email" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" placeholder="Votre email">
-      <div *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched" class="text-red-500 text-sm">
-        Un email valide est requis.
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <!-- Step 1 -->
+      <div class="step-content" *ngIf="currentStep === 1">
+        <div class="form-group">
+          <div class="input-wrapper">
+            <i class="fas fa-user"></i>
+            <input
+              type="text"
+              formControlName="firstName"
+              placeholder="First Name"
+              [class.error]="registerForm.get('firstName')?.touched && registerForm.get('firstName')?.invalid"
+            >
+          </div>
+          <div class="error-message" *ngIf="registerForm.get('firstName')?.touched && registerForm.get('firstName')?.invalid">
+            First name is required
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="input-wrapper">
+            <i class="fas fa-user"></i>
+            <input
+              type="text"
+              formControlName="lastName"
+              placeholder="Last Name"
+              [class.error]="registerForm.get('lastName')?.touched && registerForm.get('lastName')?.invalid"
+            >
+          </div>
+          <div class="error-message" *ngIf="registerForm.get('lastName')?.touched && registerForm.get('lastName')?.invalid">
+            Last name is required
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="input-wrapper">
+            <i class="fas fa-envelope"></i>
+            <input
+              type="email"
+              formControlName="email"
+              placeholder="Email"
+              [class.error]="registerForm.get('email')?.touched && registerForm.get('email')?.invalid"
+            >
+          </div>
+          <div class="error-message" *ngIf="registerForm.get('email')?.touched && registerForm.get('email')?.errors?.['email']">
+            Please enter a valid email
+          </div>
+        </div>
       </div>
-    </div>
 
-    <!-- Mot de passe -->
-    <div>
-      <label class="block text-sm font-medium text-gray-700">Mot de passe</label>
-      <input type="password" formControlName="password" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" placeholder="********">
-      <div *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched" class="text-red-500 text-sm">
-        Le mot de passe doit contenir au moins 6 caractères.
+      <!-- Step 2 -->
+      <div class="step-content" *ngIf="currentStep === 2">
+        <div class="form-group">
+          <div class="input-wrapper">
+            <i class="fas fa-lock"></i>
+            <input
+              type="password"
+              formControlName="password"
+              placeholder="Password"
+              [class.error]="registerForm.get('password')?.touched && registerForm.get('password')?.invalid"
+            >
+          </div>
+          <div class="error-message" *ngIf="registerForm.get('password')?.touched && registerForm.get('password')?.errors?.['minlength']">
+            Password must be at least 8 characters
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="input-wrapper">
+            <i class="fas fa-lock"></i>
+            <input
+              type="password"
+              formControlName="confirmPassword"
+              placeholder="Confirm Password"
+              [class.error]="registerForm.hasError('mismatch') && registerForm.get('confirmPassword')?.touched"
+            >
+          </div>
+          <div class="error-message" *ngIf="registerForm.hasError('mismatch') && registerForm.get('confirmPassword')?.touched">
+            Passwords do not match
+          </div>
+        </div>
       </div>
-    </div>
 
-    <!-- Confirmation du mot de passe -->
-<!--    <div>-->
-<!--      <label class="block text-sm font-medium text-gray-700">Confirmer le mot de passe</label>-->
-<!--      <input type="password" formControlName="confirmPassword" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500" placeholder="********">-->
-<!--      <div *ngIf="registerForm.errors?.mismatch && registerForm.get('confirmPassword')?.touched" class="text-red-500 text-sm">-->
-<!--        Les mots de passe ne correspondent pas.-->
-<!--      </div>-->
-<!--    </div>-->
+      <!-- Step 3 -->
+      <div class="step-content" *ngIf="currentStep === 3">
+        <div class="form-group">
+          <div class="input-wrapper">
+            <i class="fas fa-phone"></i>
+            <input
+              type="tel"
+              formControlName="phone"
+              placeholder="Phone Number"
+              [class.error]="registerForm.get('phone')?.touched && registerForm.get('phone')?.invalid"
+            >
+          </div>
+          <div class="error-message" *ngIf="registerForm.get('phone')?.touched && registerForm.get('phone')?.invalid">
+            Please enter a valid phone number
+          </div>
+        </div>
 
-    <!-- Bouton d'inscription -->
-    <button type="submit" [disabled]="registerForm.invalid" class="w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition disabled:bg-gray-400">
-      S'inscrire
-    </button>
-  </form>
+        <div class="form-group">
+          <div class="input-wrapper">
+            <i class="fas fa-map-marker-alt"></i>
+            <textarea
+              formControlName="address"
+              placeholder="Address"
+              [class.error]="registerForm.get('address')?.touched && registerForm.get('address')?.invalid"
+            ></textarea>
+          </div>
+          <div class="error-message" *ngIf="registerForm.get('address')?.touched && registerForm.get('address')?.invalid">
+            Address is required
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="input-wrapper">
+            <i class="fas fa-calendar"></i>
+            <input
+              type="date"
+              formControlName="birthDate"
+              [class.error]="registerForm.get('birthDate')?.touched && registerForm.get('birthDate')?.invalid"
+            >
+          </div>
+          <div class="error-message" *ngIf="registerForm.get('birthDate')?.touched && registerForm.get('birthDate')?.invalid">
+            Birth date is required
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="image-upload">
+            <input
+              type="file"
+              (change)="onFileChange($event)"
+              accept="image/*"
+              #fileInput
+            >
+            <div class="preview" (click)="fileInput.click()">
+              <img *ngIf="imagePreview" [src]="imagePreview" alt="Profile preview">
+              <i *ngIf="!imagePreview" class="fas fa-camera"></i>
+              <span *ngIf="!imagePreview">Click to upload profile image</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="button-group">
+        <button
+          type="button"
+          *ngIf="currentStep > 1"
+          (click)="previousStep()"
+          class="btn-secondary"
+        >
+          Previous
+        </button>
+
+        <button
+          *ngIf="currentStep < 3"
+          type="button"
+          (click)="nextStep()"
+          class="btn-primary"
+          [disabled]="!isStepValid(currentStep)"
+        >
+          Next
+        </button>
+
+        <button
+          *ngIf="currentStep === 3"
+          type="submit"
+          class="btn-primary"
+          [disabled]="!registerForm.valid"
+        >
+          Complete Registration
+        </button>
+      </div>
+    </form>
+  </div>
 </div>
