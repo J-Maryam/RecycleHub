@@ -16,45 +16,21 @@
       <!-- Step 1 -->
       <div class="step-content" *ngIf="currentStep === 1">
         <div class="form-group">
-          <div class="input-wrapper">
-            <i class="fas fa-user"></i>
-            <input
-              type="text"
-              formControlName="firstName"
-              placeholder="First Name"
-              [class.error]="registerForm.get('firstName')?.touched && registerForm.get('firstName')?.invalid"
-            >
-          </div>
+          <input type="text" formControlName="firstName" placeholder="First Name">
           <div class="error-message" *ngIf="registerForm.get('firstName')?.touched && registerForm.get('firstName')?.invalid">
             First name is required
           </div>
         </div>
 
         <div class="form-group">
-          <div class="input-wrapper">
-            <i class="fas fa-user"></i>
-            <input
-              type="text"
-              formControlName="lastName"
-              placeholder="Last Name"
-              [class.error]="registerForm.get('lastName')?.touched && registerForm.get('lastName')?.invalid"
-            >
-          </div>
+          <input type="text" formControlName="lastName" placeholder="Last Name">
           <div class="error-message" *ngIf="registerForm.get('lastName')?.touched && registerForm.get('lastName')?.invalid">
             Last name is required
           </div>
         </div>
 
         <div class="form-group">
-          <div class="input-wrapper">
-            <i class="fas fa-envelope"></i>
-            <input
-              type="email"
-              formControlName="email"
-              placeholder="Email"
-              [class.error]="registerForm.get('email')?.touched && registerForm.get('email')?.invalid"
-            >
-          </div>
+          <input type="email" formControlName="email" placeholder="Email">
           <div class="error-message" *ngIf="registerForm.get('email')?.touched && registerForm.get('email')?.errors?.['email']">
             Please enter a valid email
           </div>
@@ -64,30 +40,14 @@
       <!-- Step 2 -->
       <div class="step-content" *ngIf="currentStep === 2">
         <div class="form-group">
-          <div class="input-wrapper">
-            <i class="fas fa-lock"></i>
-            <input
-              type="password"
-              formControlName="password"
-              placeholder="Password"
-              [class.error]="registerForm.get('password')?.touched && registerForm.get('password')?.invalid"
-            >
-          </div>
+          <input type="password" formControlName="password" placeholder="Password">
           <div class="error-message" *ngIf="registerForm.get('password')?.touched && registerForm.get('password')?.errors?.['minlength']">
             Password must be at least 8 characters
           </div>
         </div>
 
         <div class="form-group">
-          <div class="input-wrapper">
-            <i class="fas fa-lock"></i>
-            <input
-              type="password"
-              formControlName="confirmPassword"
-              placeholder="Confirm Password"
-              [class.error]="registerForm.hasError('mismatch') && registerForm.get('confirmPassword')?.touched"
-            >
-          </div>
+          <input type="password" formControlName="confirmPassword" placeholder="Confirm Password">
           <div class="error-message" *ngIf="registerForm.hasError('mismatch') && registerForm.get('confirmPassword')?.touched">
             Passwords do not match
           </div>
@@ -97,93 +57,31 @@
       <!-- Step 3 -->
       <div class="step-content" *ngIf="currentStep === 3">
         <div class="form-group">
-          <div class="input-wrapper">
-            <i class="fas fa-phone"></i>
-            <input
-              type="tel"
-              formControlName="phone"
-              placeholder="Phone Number"
-              [class.error]="registerForm.get('phone')?.touched && registerForm.get('phone')?.invalid"
-            >
-          </div>
+          <input type="tel" formControlName="phone" placeholder="Phone Number">
           <div class="error-message" *ngIf="registerForm.get('phone')?.touched && registerForm.get('phone')?.invalid">
             Please enter a valid phone number
           </div>
         </div>
 
         <div class="form-group">
-          <div class="input-wrapper">
-            <i class="fas fa-map-marker-alt"></i>
-            <textarea
-              formControlName="address"
-              placeholder="Address"
-              [class.error]="registerForm.get('address')?.touched && registerForm.get('address')?.invalid"
-            ></textarea>
-          </div>
+          <textarea formControlName="address" placeholder="Address"></textarea>
           <div class="error-message" *ngIf="registerForm.get('address')?.touched && registerForm.get('address')?.invalid">
             Address is required
           </div>
         </div>
 
         <div class="form-group">
-          <div class="input-wrapper">
-            <i class="fas fa-calendar"></i>
-            <input
-              type="date"
-              formControlName="birthDate"
-              [class.error]="registerForm.get('birthDate')?.touched && registerForm.get('birthDate')?.invalid"
-            >
-          </div>
+          <input type="date" formControlName="birthDate">
           <div class="error-message" *ngIf="registerForm.get('birthDate')?.touched && registerForm.get('birthDate')?.invalid">
             Birth date is required
-          </div>
-        </div>
-
-        <div class="form-group">
-          <div class="image-upload">
-            <input
-              type="file"
-              (change)="onFileChange($event)"
-              accept="image/*"
-              #fileInput
-            >
-            <div class="preview" (click)="fileInput.click()">
-              <img *ngIf="imagePreview" [src]="imagePreview" alt="Profile preview">
-              <i *ngIf="!imagePreview" class="fas fa-camera"></i>
-              <span *ngIf="!imagePreview">Click to upload profile image</span>
-            </div>
           </div>
         </div>
       </div>
 
       <div class="button-group">
-        <button
-          type="button"
-          *ngIf="currentStep > 1"
-          (click)="previousStep()"
-          class="btn-secondary"
-        >
-          Previous
-        </button>
-
-        <button
-          *ngIf="currentStep < 3"
-          type="button"
-          (click)="nextStep()"
-          class="btn-primary"
-          [disabled]="!isStepValid(currentStep)"
-        >
-          Next
-        </button>
-
-        <button
-          *ngIf="currentStep === 3"
-          type="submit"
-          class="btn-primary"
-          [disabled]="!registerForm.valid"
-        >
-          Complete Registration
-        </button>
+        <button type="button" *ngIf="currentStep > 1" (click)="previousStep()">Previous</button>
+        <button type="button" *ngIf="currentStep < 3" (click)="nextStep()" [disabled]="!isStepValid(currentStep)">Next</button>
+        <button type="submit" *ngIf="currentStep === 3" [disabled]="!registerForm.valid">Complete Registration</button>
       </div>
     </form>
   </div>
