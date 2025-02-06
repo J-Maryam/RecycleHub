@@ -27,16 +27,19 @@ export class AuthService {
 
   authenticate(email: string, password: string): boolean {
     const users = this.getAllUsers();
-    const user = users.find(u => u.email === email && u.password === password); // Vérifie si l'email et le mot de passe correspondent
+    const user = users.find(u => u.email === email && u.password === password);
 
     return user !== undefined;
   }
 
   logout(): void {
+    console.log("Déconnexion en cours...");
     localStorage.removeItem('userName');
-    localStorage.removeItem('users');
-    window.location.href = '/';
+    sessionStorage.clear();
+
+    window.location.href = '/login';
   }
+
   private getAllUsers(): User[] {
     const users = localStorage.getItem(this.localStorageKey);
     return users ? JSON.parse(users) : [];

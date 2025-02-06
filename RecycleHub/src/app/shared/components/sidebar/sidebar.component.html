@@ -1,10 +1,6 @@
-<!-- sidebar.component.html -->
 <div class="sidebar">
   <div class="logo">
-<!--    <img src="assets/logo.png" alt="RecycleHub">-->
-    <h1 class="text-xl font-bold">RecycleHub ♻️</h1>
-
-<!--    <h2>RecycleHub ♻️</h2>-->
+    <h1 class="text-2xl font-bold">RecycleHub ♻️</h1>
   </div>
 
   <nav class="nav-menu">
@@ -30,7 +26,7 @@
   </nav>
 
   <div class="sidebar-footer">
-    <a routerLink="/logout" class="nav-item">
+    <a (click)="logout()" class="nav-item logout">
       <i class="fas fa-sign-out-alt"></i>
       <span>Logout</span>
     </a>
