@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import {NgIf} from '@angular/common';
-import {FormsModule} from '@angular/forms';
-import {SidebarComponent} from '../../shared/components/sidebar/sidebar.component';
+import { NgIf, CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { SidebarComponent } from '../../shared/components/sidebar/sidebar.component';
 
 @Component({
   selector: 'app-profile',
@@ -9,6 +9,7 @@ import {SidebarComponent} from '../../shared/components/sidebar/sidebar.componen
   standalone: true,
   imports: [
     NgIf,
+    CommonModule,
     FormsModule,
     SidebarComponent
   ],
@@ -16,7 +17,8 @@ import {SidebarComponent} from '../../shared/components/sidebar/sidebar.componen
 })
 export class ProfileComponent {
   user = {
-    name: 'John Doe',
+    firstName: 'John',
+    lastName: 'Doe',
     email: 'john.doe@example.com',
     phone: '+212 600 000 000',
     avatar: 'https://i.pravatar.cc/150?img=3'
@@ -31,5 +33,9 @@ export class ProfileComponent {
   saveChanges(): void {
     alert("Profile updated successfully!");
     this.editMode = false;
+  }
+
+  deleteAccount(): void {
+    alert("Account deleted!");
   }
 }

@@ -1,31 +1,66 @@
-<div class="dashboard-container">
-  <app-sidebar></app-sidebar>
-  <div class="main-content">
-    <div class="header">
-      <div class="user-info">
-<!--        <img src="assets/images/profile.png" alt="Profile" class="profile-img">-->
-        <img [src]="user.avatar" alt="User Avatar" class="profile-avatar">
-        <span class="username">John Doe</span>
+<div class="flex h-screen bg-gray-100">
+  <!-- Sidebar -->
+  <app-sidebar class="w-2/12 bg-white shadow-md"></app-sidebar>
+
+  <!-- Main Content -->
+  <div class="flex-1 flex flex-col">
+    <!-- Header -->
+    <div class="justify-end  bg-white shadow-md p-4 flex justify-between items-center">
+      <div class="flex items-center space-x-4">
+        <img [src]="user.avatar" alt="User Avatar" class="w-12 h-12 rounded-full border-2 border-gray-300">
+        <span class="text-lg font-semibold text-gray-700">{{ user.firstName }} {{ user.lastName }}</span>
       </div>
     </div>
 
-    <div class="profile-container">
-      <h2>Profile Settings</h2>
-      <form class="profile-form">
-        <label for="username">Username</label>
-        <input type="text" id="username" value="John Doe">
+    <!-- Profile Container -->
+    <div class="flex flex-col items-center justify-center mt-8">
+      <div class="bg-white p-6 rounded-lg shadow-md w-full max-w-md">
+        <h2 class="text-xl font-bold text-gray-800 text-center">Profile Settings</h2>
 
-        <label for="email">Email</label>
-        <input type="email" id="email" value="johndoe@example.com">
+        <form class="mt-4 space-y-4" (submit)="saveChanges()">
+          <div>
+            <label class="block text-gray-600 font-medium" for="firstname">First Name</label>
+            <input type="text" id="firstname" [(ngModel)]="user.firstName" name="firstname"
+                   class="mt-1 w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
+          </div>
 
-        <label for="password">Password</label>
-        <input type="password" id="password" placeholder="Enter new password">
+          <div>
+            <label class="block text-gray-600 font-medium" for="lastname">Last Name</label>
+            <input type="text" id="lastname" [(ngModel)]="user.lastName" name="lastname"
+                   class="mt-1 w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
+          </div>
 
-        <div class="buttons">
-          <button type="submit" class="save-btn">Save Changes</button>
-          <button type="button" class="delete-btn">Delete Account</button>
-        </div>
-      </form>
+          <div>
+            <label class="block text-gray-600 font-medium" for="email">Email</label>
+            <input type="email" id="email" [(ngModel)]="user.email" name="email"
+                   class="mt-1 w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
+          </div>
+
+          <div>
+            <label class="block text-gray-600 font-medium" for="phone">Phone</label>
+            <input type="text" id="phone" [(ngModel)]="user.phone" name="phone"
+                   class="mt-1 w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
+          </div>
+
+          <div>
+            <label class="block text-gray-600 font-medium" for="password">New Password</label>
+            <input type="password" id="password" placeholder="Enter new password"
+                   class="mt-1 w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:outline-none">
+          </div>
+
+          <!-- Buttons -->
+          <div class="flex justify-between mt-4">
+            <button type="submit"
+                    class="px-4 py-2 bg-green-600 text-white rounded-lg shadow-md hover:bg-green-700 transition">
+              Save Changes
+            </button>
+            <button type="button" (click)="deleteAccount()"
+                    class="px-4 py-2 bg-red-600 text-white rounded-lg shadow-md hover:bg-red-700 transition">
+              Delete Account
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 </div>
