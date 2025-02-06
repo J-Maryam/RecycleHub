@@ -1,1 +1,38 @@
-<p>sidebar works!</p>
+<!-- sidebar.component.html -->
+<div class="sidebar">
+  <div class="logo">
+<!--    <img src="assets/logo.png" alt="RecycleHub">-->
+    <h1 class="text-xl font-bold">RecycleHub ♻️</h1>
+
+<!--    <h2>RecycleHub ♻️</h2>-->
+  </div>
+
+  <nav class="nav-menu">
+    <a routerLink="/dashboard" routerLinkActive="active" class="nav-item">
+      <i class="fas fa-home"></i>
+      <span>Dashboard</span>
+    </a>
+
+    <a routerLink="/collections" routerLinkActive="active" class="nav-item">
+      <i class="fas fa-recycle"></i>
+      <span>Collections</span>
+    </a>
+
+    <a routerLink="/rewards" routerLinkActive="active" class="nav-item">
+      <i class="fas fa-gift"></i>
+      <span>Rewards</span>
+    </a>
+
+    <a routerLink="/profile" routerLinkActive="active" class="nav-item">
+      <i class="fas fa-user"></i>
+      <span>Profile</span>
+    </a>
+  </nav>
+
+  <div class="sidebar-footer">
+    <a routerLink="/logout" class="nav-item">
+      <i class="fas fa-sign-out-alt"></i>
+      <span>Logout</span>
+    </a>
+  </div>
+</div>

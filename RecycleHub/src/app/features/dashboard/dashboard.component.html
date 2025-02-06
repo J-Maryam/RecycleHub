@@ -1,28 +1,72 @@
+<!-- dashboard.component.html -->
 <div class="dashboard-container">
-  <nav class="navbar">
-    <h2>Dashboard</h2>
-    <button class="logout-btn" (click)="logout()">Déconnexion</button>
-  </nav>
-
-  <div class="content">
-    <h3>Bienvenue, {{ userName }} 👋</h3>
-    <p>Voici votre espace personnel.</p>
-
-    <div class="cards">
-      <div class="card">
-        <h4>Statistiques</h4>
-        <p>Consultez vos dernières données</p>
+  <app-sidebar></app-sidebar>
+  <div class="main-content">
+    <div class="header">
+      <div class="user-info">
+        <img src="assets/images/profile.png" alt="Profile" class="profile-img">
+        <span class="username">John Doe</span>
+      </div>
+    </div>
+    <div class="dashboard-grid">
+      <!-- Stats Cards -->
+      <div class="stat-card">
+        <i class="fas fa-recycle"></i>
+        <div class="stat-content">
+          <h3>Total Collections</h3>
+          <p class="stat-number">156</p>
+        </div>
       </div>
 
-      <div class="card">
-        <h4>Paramètres</h4>
-        <p>Modifiez vos préférences</p>
+      <div class="stat-card">
+        <i class="fas fa-coins"></i>
+        <div class="stat-content">
+          <h3>Points Earned</h3>
+          <p class="stat-number">2,450</p>
+        </div>
       </div>
 
-      <div class="card">
-        <h4>Historique</h4>
-        <p>Voir vos activités récentes</p>
+      <div class="stat-card">
+        <i class="fas fa-clock"></i>
+        <div class="stat-content">
+          <h3>Pending Requests</h3>
+          <p class="stat-number">3</p>
+        </div>
       </div>
+
+      <div class="stat-card">
+        <i class="fas fa-weight-hanging"></i>
+        <div class="stat-content">
+          <h3>Total Weight (kg)</h3>
+          <p class="stat-number">437</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recent Collections Table -->
+    <div class="table-container">
+      <h2>Recent Collections</h2>
+      <table>
+        <thead>
+        <tr>
+          <th>Date</th>
+          <th>Type</th>
+          <th>Weight</th>
+          <th>Points</th>
+          <th>Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>2024-02-06</td>
+          <td>Plastic</td>
+          <td>2.5 kg</td>
+          <td>5</td>
+          <td><span class="status completed">Completed</span></td>
+        </tr>
+        <!-- Add more rows as needed -->
+        </tbody>
+      </table>
     </div>
   </div>
 </div>
