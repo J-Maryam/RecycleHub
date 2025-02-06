@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import {FormGroup, FormBuilder, Validators, ReactiveFormsModule} from '@angular/forms';
 import { AuthService } from '../../../core/services/auth.service';
-import {NgIf} from '@angular/common';
+import { Router } from '@angular/router';
+import {NgIf} from '@angular/common'; // Importer Router
 
 @Component({
   selector: 'app-login',
@@ -17,14 +18,17 @@ export class LoginComponent {
   loginForm: FormGroup;
   loginError: string | null = null;
 
-  constructor(private fb: FormBuilder, private authService: AuthService) {
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private router: Router
+  ) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]]
     });
   }
 
-  // Méthode de soumission du formulaire
   onSubmit(): void {
     if (this.loginForm.valid) {
       const { email, password } = this.loginForm.value;
@@ -33,7 +37,7 @@ export class LoginComponent {
 
       if (isAuthenticated) {
         console.log('Login réussi');
-        // Rediriger vers la page d'accueil ou dashboard, par exemple
+        this.router.navigate(['/dashboard']);
       } else {
         this.loginError = 'Email ou mot de passe incorrect';
       }
