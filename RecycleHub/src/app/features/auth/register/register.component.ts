@@ -1,7 +1,8 @@
-// <!-- register.component.ts -->
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {NgIf} from '@angular/common';
+import {AuthService} from '../../../core/services/auth.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -15,9 +16,10 @@ import {NgIf} from '@angular/common';
 })
 export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
+  registrationFailed = false;
   currentStep = 1;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
     this.registerForm = this.fb.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
@@ -39,8 +41,12 @@ export class RegisterComponent implements OnInit {
 
   onSubmit(): void {
     if (this.registerForm.valid) {
-      console.log(this.registerForm.value);
-      alert('Registration Successful!');
+      const success = this.authService.register(this.registerForm.value);
+      if (success) {
+        this.router.navigate(['/login']);
+      } else {
+        this.registrationFailed = true;
+      }
     }
   }
 
