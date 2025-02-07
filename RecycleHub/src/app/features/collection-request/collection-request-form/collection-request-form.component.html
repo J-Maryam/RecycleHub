@@ -1,31 +1,70 @@
-<div class="collection-form">
-  <h2>Ajouter une Demande de Collecte</h2>
+<div class="min-h-screen bg-gray-100 flex">
+  <app-sidebar></app-sidebar>
 
-  <label for="wasteType">Type de Déchet</label>
-  <select id="wasteType" [(ngModel)]="wasteType">
-    <option *ngFor="let type of wasteTypes" [value]="type">{{type}}</option>
-  </select>
+  <div class="flex-1 ml-64">
+    <div class="w-auto px-12 p-4">
+      <app-navbar></app-navbar>
+    </div>
 
-  <label for="estimatedWeight">Poids Estimé (kg)</label>
-  <input type="number" id="estimatedWeight" [(ngModel)]="estimatedWeight" required>
+    <div class="px-8">
+      <div class="bg-white rounded-lg shadow-md p-6 max-w-xl mx-auto">
+        <h2 class="text-2xl font-semibold text-gray-800 mb-6">New Collection Request</h2>
+        <form [formGroup]="collectionRequestForm" (ngSubmit)="onSubmit()" class="space-y-4">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label for="wasteType" class="block text-sm font-medium text-gray-700">Type of Waste</label>
+              <select id="wasteType" formControlName="wasteType"
+                      class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-green-500 focus:border-green-500">
+                <option value="plastic">Plastic</option>
+                <option value="glass">Glass</option>
+                <option value="paper">Paper</option>
+                <option value="metal">Metal</option>
+              </select>
+            </div>
 
-  <label for="collectionAddress">Adresse de Collecte</label>
-  <input type="text" id="collectionAddress" [(ngModel)]="collectionAddress" required>
+            <div>
+              <label for="estimatedWeight" class="block text-sm font-medium text-gray-700">Estimated Weight (grams)</label>
+              <input id="estimatedWeight" type="number" formControlName="estimatedWeight"
+                     class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-green-500 focus:border-green-500">
+              <div *ngIf="collectionRequestForm.get('estimatedWeight')?.hasError('min')"
+                   class="text-sm text-red-600 mt-1">
+                Minimum weight is 1000g.
+              </div>
+            </div>
+          </div>
 
-  <label for="collectionDate">Date de Collecte</label>
-  <input type="date" id="collectionDate" [(ngModel)]="collectionDate" required>
+          <div>
+            <label for="collectionAddress" class="block text-sm font-medium text-gray-700">Collection Address</label>
+            <input id="collectionAddress" type="text" formControlName="collectionAddress"
+                   class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-green-500 focus:border-green-500">
+          </div>
 
-  <label for="status">Statut</label>
-  <select id="status" [(ngModel)]="status">
-    <option value="pending">En attente</option>
-    <option value="occupied">Occupée</option>
-    <option value="in-progress">En cours</option>
-    <option value="validated">Validée</option>
-    <option value="rejected">Rejetée</option>
-  </select>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label for="preferredDate" class="block text-sm font-medium text-gray-700">Preferred Date</label>
+              <input id="preferredDate" type="date" formControlName="preferredDate"
+                     class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-green-500 focus:border-green-500">
+            </div>
 
-  <label for="notes">Notes</label>
-  <textarea id="notes" [(ngModel)]="notes"></textarea>
+            <div>
+              <label for="preferredTime" class="block text-sm font-medium text-gray-700">Preferred Time</label>
+              <input id="preferredTime" type="time" formControlName="preferredTime"
+                     class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-green-500 focus:border-green-500">
+            </div>
+          </div>
 
-  <button (click)="addRequest()">Ajouter la Demande</button>
+          <div>
+            <label for="notes" class="block text-sm font-medium text-gray-700">Additional Notes</label>
+            <textarea id="notes" formControlName="notes"
+                      class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-green-500 focus:border-green-500"></textarea>
+          </div>
+
+          <button type="submit" [disabled]="collectionRequestForm.invalid"
+                  class="w-full bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 disabled:bg-gray-400 disabled:cursor-not-allowed">
+            Submit Request
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
 </div>

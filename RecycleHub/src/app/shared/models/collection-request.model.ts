@@ -1,14 +1,15 @@
-import {WasteType} from './waste-type.enum';
+import { WasteType } from './waste-type.enum';
 
 export interface CollectionRequest {
   id: number;
   userId: number;
-  wasteType: WasteType;
+  wasteTypes: WasteType[];
   estimatedWeight: number;
   collectionAddress: string;
-  collectionDate: string;
+  collectionDate: Date;
   status: 'pending' | 'occupied' | 'in-progress' | 'validated' | 'rejected';
-  notes: string;
+  notes?: string;
+  images?: string[];
   createdAt: Date;
   updatedAt: Date;
 }

@@ -1,41 +1,48 @@
-import { Component, inject } from '@angular/core';
-import { Store } from '@ngrx/store';
-import {WasteType} from '../../../shared/models/waste-type.enum';
+import { Component } from '@angular/core';
+import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
+import {CollectionService} from '../../../core/services/collection-request.service';
 import {CollectionRequest} from '../../../shared/models/collection-request.model';
-import {addCollectionRequest} from '../../../store/collection-request/collection-request.actions';
+import {NgIf} from '@angular/common';
+import {SidebarComponent} from '../../../shared/components/sidebar/sidebar.component';
+import {NavbarComponent} from '../../../shared/components/navbar/navbar.component';
 
 @Component({
-  selector: 'app-collection-form',
-  templateUrl: './collection-form.component.html',
+  selector: 'app-collection-request-form',
+  templateUrl: './collection-request-form.component.html',
   standalone: true,
-  styleUrls: ['./collection-form.component.css']
+  imports: [
+    ReactiveFormsModule,
+    NgIf,
+    SidebarComponent,
+    NavbarComponent
+  ],
+  styleUrls: ['./collection-request-form.component.css']
 })
-export class CollectionFormComponent {
-  private store = inject(Store);
+export class CollectionRequestFormComponent {
+  collectionRequestForm: FormGroup;
 
-  wasteTypes = Object.values(WasteType);
-  title: string = '';
-  description: string = '';
-  estimatedWeight: number = 0;
-  collectionAddress: string = '';
-  collectionDate: string = '';
-  status: 'pending' | 'occupied' | 'in-progress' | 'validated' | 'rejected' = 'pending';
-  notes: string = '';
+  constructor(private fb: FormBuilder, private collectionRequestService: CollectionService) {
+    this.collectionRequestForm = this.fb.group({
+      wasteType: ['', Validators.required],
+      estimatedWeight: ['', [Validators.required, Validators.min(1000)]],
+      collectionAddress: ['', Validators.required],
+      preferredDate: ['', Validators.required],
+      preferredTime: ['', Validators.required],
+      notes: ['']
+    });
+  }
 
-  addRequest() {
-    const newRequest: CollectionRequest = {
-      id: Math.floor(Math.random() * 1000), // Génére un ID unique
-      userId: 1, // Simuler un userId
-      wasteType: this.wasteTypes[0], // Choisir le premier type de déchet
-      estimatedWeight: this.estimatedWeight,
-      collectionAddress: this.collectionAddress,
-      collectionDate: this.collectionDate,
-      status: this.status,
-      notes: this.notes,
-      createdAt: new Date(),
-      updatedAt: new Date()
-    };
-
-    this.store.dispatch(addCollectionRequest({ request: newRequest }));
+  onSubmit(): void {
+    if (this.collectionRequestForm.valid) {
+      const newRequest: CollectionRequest = {
+        id: 1,
+        userId: 'user-id',
+        ...this.collectionRequestForm.value,
+        status: 'En attente'
+      };
+      this.collectionRequestService.addRequest(newRequest);
+      alert('Demande de collecte ajoutée avec succès!');
+      this.collectionRequestForm.reset();
+    }
   }
 }

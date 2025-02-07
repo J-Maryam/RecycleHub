@@ -1,19 +1,29 @@
 import { Injectable } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { CollectionRequest } from '../../shared/models/collection-request.model';
-import * as CollectionRequestActions from '../../store/collection-request/collection-request.actions';
+import {CollectionRequest} from '../../shared/models/collection-request.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CollectionRequestService {
-  constructor(private store: Store) {}
+export class CollectionService {
+  private storageKey = 'collectionRequests';
 
-  addCollectionRequest(request: CollectionRequest) {
-    this.store.dispatch(CollectionRequestActions.addCollectionRequest({ request }));
+  constructor() {}
+
+  getAllRequests(): CollectionRequest[] {
+    const data = localStorage.getItem(this.storageKey);
+    return data ? JSON.parse(data) : [];
   }
 
-  loadCollectionRequests() {
-    this.store.dispatch(CollectionRequestActions.loadCollectionRequests({ requests: [] }));
+  addRequest(request: CollectionRequest): void {
+    const requests = this.getAllRequests();
+    request.id = new Date().getTime();
+    request.createdAt = new Date();
+    request.updatedAt = new Date();
+    requests.push(request);
+    this.saveToLocalStorage(requests);
+  }
+
+  private saveToLocalStorage(requests: CollectionRequest[]): void {
+    localStorage.setItem(this.storageKey, JSON.stringify(requests));
   }
 }
