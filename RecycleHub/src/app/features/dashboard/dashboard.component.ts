@@ -11,4 +11,11 @@ import {SidebarComponent} from '../../shared/components/sidebar/sidebar.componen
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent {
+  user = {
+    firstName: 'John',
+    lastName: 'Doe',
+    email: 'john.doe@example.com',
+    phone: '+212 600 000 000',
+    avatar: 'https://i.pravatar.cc/150?img=3'
+  };
 }
