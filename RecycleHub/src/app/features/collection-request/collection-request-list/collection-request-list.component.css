@@ -1,0 +1,54 @@
+
+.table-container {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+th, td {
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+th {
+  font-weight: 600;
+  color: #666;
+}
+
+.status {
+  padding: 0.25rem 0.75rem;
+  border-radius: 1rem;
+  font-size: 0.875rem;
+}
+
+.status.completed {
+  background-color: #e0f2f1;
+  color: #00897b;
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    width: 60px;
+    padding: 1rem;
+  }
+
+  .logo h2, .nav-item span {
+    display: none;
+  }
+
+  .main-content {
+    margin-left: 60px;
+  }
+
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+}
