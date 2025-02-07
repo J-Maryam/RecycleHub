@@ -29,7 +29,11 @@ export class AuthService {
     const users = this.getAllUsers();
     const user = users.find(u => u.email === email && u.password === password);
 
-    return user !== undefined;
+    if (user) {
+      localStorage.setItem('currentUser', JSON.stringify(user));
+      return true;
+    }
+    return false;
   }
 
   logout(): void {
@@ -44,4 +48,10 @@ export class AuthService {
     const users = localStorage.getItem(this.localStorageKey);
     return users ? JSON.parse(users) : [];
   }
+
+  getCurrentUser(): User | null {
+    const user = localStorage.getItem('currentUser');
+    return user ? JSON.parse(user) : null;
+  }
+
 }
