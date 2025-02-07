@@ -4,6 +4,9 @@ import {RegisterComponent} from './features/auth/register/register.component';
 import {LoginComponent} from './features/auth/login/login.component';
 import {DashboardComponent} from './features/dashboard/dashboard.component';
 import {ProfileComponent} from './features/profile/profile.component';
+import {
+  CollectionRequestListComponent
+} from './features/collection-request/collection-request-list/collection-request-list.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
@@ -11,4 +14,5 @@ export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'profile', component: ProfileComponent },
+  { path: 'collections', component: CollectionRequestListComponent }
 ];
