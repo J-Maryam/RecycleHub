@@ -1,41 +1,51 @@
-import { Component } from '@angular/core';
-import { NgIf, CommonModule } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { SidebarComponent } from '../../shared/components/sidebar/sidebar.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   standalone: true,
   imports: [
-    NgIf,
     CommonModule,
     FormsModule,
     SidebarComponent
   ],
   styleUrls: ['./profile.component.css']
 })
-export class ProfileComponent {
-  user = {
-    firstName: 'John',
-    lastName: 'Doe',
-    email: 'john.doe@example.com',
-    phone: '+212 600 000 000',
+export class ProfileComponent implements OnInit{
+    user = {
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
     avatar: 'https://i.pravatar.cc/150?img=3'
   };
 
-  editMode = false;
+  constructor(private router: Router) {}
 
-  toggleEditMode(): void {
-    this.editMode = !this.editMode;
+  ngOnInit(): void {
+    const storedUser = localStorage.getItem('currentUser');
+    if (storedUser) {
+      this.user = JSON.parse(storedUser);
+    } else {
+      // Rediriger vers la connexion si l'utilisateur n'est pas connecté
+      this.router.navigate(['/login']);
+    }
   }
 
   saveChanges(): void {
+    localStorage.setItem('currentUser', JSON.stringify(this.user));
     alert("Profile updated successfully!");
-    this.editMode = false;
   }
 
   deleteAccount(): void {
-    alert("Account deleted!");
+    if (confirm("Are you sure you want to delete your account?")) {
+      localStorage.removeItem('currentUser');
+      alert("Account deleted successfully!");
+      this.router.navigate(['/login']);
+    }
   }
 }
