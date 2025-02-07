@@ -31,7 +31,6 @@ export class ProfileComponent implements OnInit{
     if (storedUser) {
       this.user = JSON.parse(storedUser);
     } else {
-      // Rediriger vers la connexion si l'utilisateur n'est pas connecté
       this.router.navigate(['/login']);
     }
   }
@@ -43,9 +42,16 @@ export class ProfileComponent implements OnInit{
 
   deleteAccount(): void {
     if (confirm("Are you sure you want to delete your account?")) {
+      const users = JSON.parse(localStorage.getItem('users') || '[]');
+
+      const updatedUsers = users.filter((u: any) => u.email !== this.user.email);
+
+      localStorage.setItem('users', JSON.stringify(updatedUsers));
       localStorage.removeItem('currentUser');
+
       alert("Account deleted successfully!");
       this.router.navigate(['/login']);
     }
   }
+
 }
