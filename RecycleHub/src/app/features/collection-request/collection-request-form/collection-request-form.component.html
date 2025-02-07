@@ -1,0 +1,31 @@
+<div class="collection-form">
+  <h2>Ajouter une Demande de Collecte</h2>
+
+  <label for="wasteType">Type de Déchet</label>
+  <select id="wasteType" [(ngModel)]="wasteType">
+    <option *ngFor="let type of wasteTypes" [value]="type">{{type}}</option>
+  </select>
+
+  <label for="estimatedWeight">Poids Estimé (kg)</label>
+  <input type="number" id="estimatedWeight" [(ngModel)]="estimatedWeight" required>
+
+  <label for="collectionAddress">Adresse de Collecte</label>
+  <input type="text" id="collectionAddress" [(ngModel)]="collectionAddress" required>
+
+  <label for="collectionDate">Date de Collecte</label>
+  <input type="date" id="collectionDate" [(ngModel)]="collectionDate" required>
+
+  <label for="status">Statut</label>
+  <select id="status" [(ngModel)]="status">
+    <option value="pending">En attente</option>
+    <option value="occupied">Occupée</option>
+    <option value="in-progress">En cours</option>
+    <option value="validated">Validée</option>
+    <option value="rejected">Rejetée</option>
+  </select>
+
+  <label for="notes">Notes</label>
+  <textarea id="notes" [(ngModel)]="notes"></textarea>
+
+  <button (click)="addRequest()">Ajouter la Demande</button>
+</div>
