@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { SidebarComponent } from '../../shared/components/sidebar/sidebar.component';
 import { Router } from '@angular/router';
+import {NavbarComponent} from '../../shared/components/navbar/navbar.component';
 
 @Component({
   selector: 'app-profile',
@@ -11,7 +12,8 @@ import { Router } from '@angular/router';
   imports: [
     CommonModule,
     FormsModule,
-    SidebarComponent
+    SidebarComponent,
+    NavbarComponent
   ],
   styleUrls: ['./profile.component.css']
 })
