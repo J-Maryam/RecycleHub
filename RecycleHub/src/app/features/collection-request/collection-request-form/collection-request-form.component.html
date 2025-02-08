@@ -23,7 +23,8 @@
             </div>
 
             <div>
-              <label for="estimatedWeight" class="block text-sm font-medium text-gray-700">Estimated Weight (grams)</label>
+              <label for="estimatedWeight" class="block text-sm font-medium text-gray-700">Estimated Weight
+                (grams)</label>
               <input id="estimatedWeight" type="number" formControlName="estimatedWeight"
                      class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-green-500 focus:border-green-500">
               <div *ngIf="collectionRequestForm.get('estimatedWeight')?.hasError('min')"
@@ -44,12 +45,22 @@
               <label for="preferredDate" class="block text-sm font-medium text-gray-700">Preferred Date</label>
               <input id="preferredDate" type="date" formControlName="preferredDate"
                      class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-green-500 focus:border-green-500">
+              <div *ngIf="collectionRequestForm.get('preferredDate')?.hasError('invalidDate')"
+                   class="text-sm text-red-600 mt-1">
+                Date must be in the future.
+              </div>
             </div>
 
             <div>
               <label for="preferredTime" class="block text-sm font-medium text-gray-700">Preferred Time</label>
               <input id="preferredTime" type="time" formControlName="preferredTime"
-                     class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-green-500 focus:border-green-500">
+                     class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-green-500 focus:border-green-500"
+                     min="09:00" max="18:00">
+              <div *ngIf="collectionRequestForm.get('preferredTime')?.hasError('invalidTime')
+             && (collectionRequestForm.get('preferredTime')?.touched || collectionRequestForm.get('preferredTime')?.dirty)"
+                   class="text-sm text-red-600 mt-1">
+                Time must be between 09:00 and 18:00.
+              </div>
             </div>
           </div>
 
