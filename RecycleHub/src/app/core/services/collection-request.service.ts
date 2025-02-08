@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {CollectionRequest} from '../../shared/models/collection-request.model';
 
 @Injectable({
@@ -7,7 +7,8 @@ import {CollectionRequest} from '../../shared/models/collection-request.model';
 export class CollectionService {
   private storageKey = 'collectionRequests';
 
-  constructor() {}
+  constructor() {
+  }
 
   getAllRequests(): CollectionRequest[] {
     const data = localStorage.getItem(this.storageKey);
@@ -19,6 +20,9 @@ export class CollectionService {
     request.id = new Date().getTime();
     request.createdAt = new Date();
     request.updatedAt = new Date();
+    if (typeof request.wasteTypes === 'string') {
+      request.wasteTypes = [request.wasteTypes];
+    }
     requests.push(request);
     this.saveToLocalStorage(requests);
   }

@@ -1,4 +1,4 @@
-import { WasteType } from './waste-type.enum';
+import {WasteType} from './waste-type.enum';
 
 export interface CollectionRequest {
   id: number;

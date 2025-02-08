@@ -56,9 +56,10 @@ export class CollectionRequestFormComponent implements OnInit {
     if (this.collectionRequestForm.valid) {
       const newRequest: CollectionRequest = {
         id: new Date().getTime(),
-        userId: '1',
+        userId: 1,
+        wasteTypes: [this.collectionRequestForm.value.wasteType],
         ...this.collectionRequestForm.value,
-        status: 'En attente',
+        status: 'pending',
         createdAt: new Date(),
         updatedAt: new Date()
       };
