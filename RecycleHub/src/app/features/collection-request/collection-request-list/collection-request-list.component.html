@@ -51,3 +51,9 @@
     </div>
   </div>
 </div>
+<!-- Modal -->
+<app-collection-request-details
+  *ngIf="selectedRequest"
+  [request]="selectedRequest"
+  (close)="closeDetails()">
+</app-collection-request-details>

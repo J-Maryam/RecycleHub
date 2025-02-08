@@ -1,1 +1,27 @@
-<p>collection-request-details works!</p>
+<!-- Overlay -->
+<div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+  <!-- Modal Content -->
+  <div class="bg-white p-6 rounded-lg shadow-lg max-w-md w-full">
+    <h2 class="text-xl font-semibold text-gray-800 mb-4">Collection Request Details</h2>
+
+    <div class="space-y-2">
+      <p><strong>Date :</strong> {{ request.preferredDate | date:'shortDate' }}</p>
+      <p><strong>Type :</strong> {{ request.wasteTypes.join(', ') }}</p>
+      <p><strong>Weight :</strong> {{ request.estimatedWeight / 1000 }} kg</p>
+      <p><strong>User ID :</strong> {{ request.userId }}</p>
+      <p><strong>Address :</strong> {{ request.collectionAddress }}</p>
+      <p><strong>Status :</strong>
+        <span [ngClass]="{
+          'text-green-600': request.status === 'validated',
+          'text-yellow-600': request.status === 'pending',
+          'text-red-600': request.status === 'rejected'
+        }">{{ request.status }}</span>
+      </p>
+    </div>
+
+    <!-- Close Button -->
+    <button (click)="closeModal()" class="mt-4 w-full bg-red-500 text-white py-2 rounded hover:bg-red-600">
+      Close
+    </button>
+  </div>
+</div>
