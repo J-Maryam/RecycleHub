@@ -6,7 +6,7 @@ export interface CollectionRequest {
   wasteTypes: WasteType[];
   estimatedWeight: number;
   collectionAddress: string;
-  collectionDate: Date;
+  preferredDate: Date;
   status: 'pending' | 'occupied' | 'in-progress' | 'validated' | 'rejected';
   notes?: string;
   images?: string[];
