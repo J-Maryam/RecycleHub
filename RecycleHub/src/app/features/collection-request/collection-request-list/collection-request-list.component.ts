@@ -22,4 +22,28 @@ export class CollectionRequestListComponent implements OnInit {
     console.log(this.collectionService.getAllRequests());
   }
 
+  showDetails(request: CollectionRequest) {
+    alert(`Détails de la collecte:\n
+    - Date : ${request.preferredDate}
+    - Type : ${request.wasteTypes.join(', ')}
+    - Poids : ${request.estimatedWeight / 1000} kg
+    - Utilisateur : ${request.userId}
+    - Adresse : ${request.collectionAddress}
+    - Statut : ${request.status}`);
+  }
+
+  // editRequest(request: CollectionRequest) {
+  //   console.log('Modifier la requête:', request);
+  //   // Naviguer vers un formulaire d'édition avec l'ID de la requête
+  //   this.router.navigate(['/edit-collection', request.id]);
+  // }
+  //
+  // deleteRequest(requestId: number) {
+  //   if (confirm('Êtes-vous sûr de vouloir supprimer cette requête ?')) {
+  //     this.collectionRequestService.deleteRequest(requestId).subscribe(() => {
+  //       this.requests = this.requests.filter(req => req.id !== requestId);
+  //     });
+  //   }
+  // }
+
 }
