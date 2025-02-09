@@ -54,9 +54,15 @@ export class CollectionRequestFormComponent implements OnInit {
 
   onSubmit(): void {
     if (this.collectionRequestForm.valid) {
+      const currentUser = this.collectionRequestService.getCurrentUser();
+      if (!currentUser || !currentUser.id) {
+        alert('Utilisateur non connecté!');
+        return;
+      }
+
       const newRequest: CollectionRequest = {
         id: new Date().getTime(),
-        userId: 1,
+        userId: currentUser.id,
         wasteTypes: [this.collectionRequestForm.value.wasteType],
         ...this.collectionRequestForm.value,
         status: 'pending',

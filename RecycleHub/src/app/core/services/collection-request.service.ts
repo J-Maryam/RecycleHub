@@ -10,6 +10,10 @@ export class CollectionService {
   constructor() {
   }
 
+  getCurrentUser() {
+    return JSON.parse(localStorage.getItem('currentUser') || '{}');
+  }
+
   getAllRequests(): CollectionRequest[] {
     const data = localStorage.getItem(this.storageKey);
     return data ? JSON.parse(data) : [];
