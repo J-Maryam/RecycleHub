@@ -118,4 +118,14 @@ export class CollectionService {
     return this.getAllRequests().filter(request => request.status === 'in-progress');
   }
 
+  updateRequestStatus(requestId: number, newStatus: 'validated' | 'rejected'): void {
+    let requests = this.getAllRequests();
+    const index = requests.findIndex(request => request.id === requestId);
+    if (index !== -1) {
+      requests[index].status = newStatus;
+      requests[index].updatedAt = new Date();
+      this.saveToLocalStorage(requests);
+    }
+  }
+
 }

@@ -26,4 +26,15 @@ export class InProgressRequestsComponent implements OnInit {
   ngOnInit() {
     this.inProgressRequests = this.collectionService.getInProgressRequestsForCollector();
   }
+
+  validateRequest(requestId: number): void {
+    this.collectionService.updateRequestStatus(requestId, 'validated');
+    this.inProgressRequests = this.collectionService.getInProgressRequestsForCollector();
+  }
+
+  rejectRequest(requestId: number): void {
+    this.collectionService.updateRequestStatus(requestId, 'rejected');
+    this.inProgressRequests = this.collectionService.getInProgressRequestsForCollector();
+  }
+
 }

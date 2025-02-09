@@ -26,15 +26,17 @@
             <p><strong>👤 Demandeur :</strong> {{ collectionService.getUserFullName(request.userId) }}</p>
           </div>
 
-          <button
-                  class="mt-4 px-4 py-2 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition">
-            ✅ Valider la collecte
-          </button>
+          <div class="flex flex-col justify-center items-center mt-4 space-y-2">
+            <button (click)="validateRequest(request.id)"
+                    class="px-4 py-2 bg-green-600 text-white font-semibold rounded-lg shadow-md hover:bg-green-700 transition">
+              ✅ Valider la collecte
+            </button>
 
-          <button
-                  class="mt-2 px-4 py-2 bg-red-600 text-white font-semibold rounded-lg shadow-md hover:bg-red-700 transition">
-            ❌ Rejeter la collecte
-          </button>
+            <button (click)="rejectRequest(request.id)"
+                    class="px-4 py-2 bg-red-600 text-white font-semibold rounded-lg shadow-md hover:bg-red-700 transition">
+              ❌ Rejeter la collecte
+            </button>
+          </div>
         </div>
       </div>
     </div>
