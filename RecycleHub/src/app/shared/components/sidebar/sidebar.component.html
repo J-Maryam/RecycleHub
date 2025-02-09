@@ -19,6 +19,11 @@
       <span class="text-sm">Pending Collections</span>
     </a>
 
+    <a *ngIf="userRole === 'collecteur'" routerLink="/occupied-collections" routerLinkActive="active" class="nav-item">
+      <i class="fas fa-recycle"></i>
+      <span class="text-sm">Occupied Collections</span>
+    </a>
+
     <a routerLink="/profile" routerLinkActive="active" class="nav-item">
       <i class="fas fa-user"></i>
       <span>Profile</span>

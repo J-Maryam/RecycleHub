@@ -99,4 +99,8 @@ export class CollectionService {
     );
   }
 
+  getOccupiedRequestsForCollector(): CollectionRequest[] {
+    return this.getAllRequests().filter(request => request.status === 'occupied');
+  }
+
 }

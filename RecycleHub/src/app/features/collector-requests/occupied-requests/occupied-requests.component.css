@@ -1,0 +1,19 @@
+.requests-section {
+  margin-top: 20px;
+}
+
+.bg-white {
+  background-color: #fff;
+}
+
+.rounded-xl {
+  border-radius: 12px;
+}
+
+.shadow-lg {
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.text-gray-700 {
+  color: #4a5568;
+}
