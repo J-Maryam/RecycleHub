@@ -32,6 +32,10 @@ export class CollectionService {
     if (typeof request.wasteTypes === 'string') {
       request.wasteTypes = [request.wasteTypes];
     }
+    const currentUser = this.getCurrentUser();
+    if (currentUser && currentUser.id) {
+      request.userId = currentUser.id;
+    }
     requests.push(request);
     this.saveToLocalStorage(requests);
   }
@@ -47,6 +51,10 @@ export class CollectionService {
     const index = requests.findIndex(request => request.id === updatedRequest.id);
     if (index !== -1) {
       updatedRequest.updatedAt = new Date();
+      const currentUser = this.getCurrentUser();
+      if (currentUser && currentUser.id) {
+        updatedRequest.userId = currentUser.id;
+      }
       requests[index] = updatedRequest;
       this.saveToLocalStorage(requests);
     }
