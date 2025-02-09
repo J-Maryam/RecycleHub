@@ -15,7 +15,7 @@
         <div *ngFor="let request of occupiedRequests" class="bg-white p-5 rounded-xl shadow-lg hover:shadow-xl transition">
           <div class="flex justify-between items-center">
             <h3 class="text-lg font-medium text-gray-700">🔹 Demande #{{ request.id }}</h3>
-            <span class="px-3 w-23 py-1 text-sm font-semibold text-blue-800 bg-blue-200 rounded">Occupée</span>
+            <span class="px-3 w-24 py-1 text-sm font-semibold text-blue-800 bg-blue-200 rounded">Occupée</span>
           </div>
 
           <div class="mt-4 space-y-2 text-gray-600">
@@ -25,6 +25,11 @@
             <p><strong>📅 Date préférée :</strong> {{ request.preferredDate | date:'short' }}</p>
             <p><strong>👤 Demandeur :</strong> {{ collectionService.getUserFullName(request.userId) }}</p>
           </div>
+
+          <button (click)="startCollection(request.id)"
+                  class="mt-4 px-4 py-2 bg-green-600 text-white font-semibold rounded-lg shadow-md hover:bg-green-700 transition">
+            🚀 Commencer la collecte
+          </button>
         </div>
       </div>
     </div>

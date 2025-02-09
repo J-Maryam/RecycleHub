@@ -26,4 +26,10 @@ export class OccupiedRequestsComponent implements OnInit {
   ngOnInit() {
     this.occupiedRequests = this.collectionService.getOccupiedRequestsForCollector();
   }
+
+  startCollection(requestId: number) {
+    this.collectionService.startCollection(requestId);
+    this.occupiedRequests = this.collectionService.getOccupiedRequestsForCollector();
+  }
+
 }

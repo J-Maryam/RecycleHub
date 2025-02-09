@@ -103,4 +103,15 @@ export class CollectionService {
     return this.getAllRequests().filter(request => request.status === 'occupied');
   }
 
+  startCollection(requestId: number): void {
+    let requests = this.getAllRequests();
+    const index = requests.findIndex(request => request.id === requestId);
+
+    if (index !== -1) {
+      requests[index].status = 'in-progress';
+      requests[index].updatedAt = new Date();
+      this.saveToLocalStorage(requests);
+    }
+  }
+
 }
