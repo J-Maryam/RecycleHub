@@ -23,8 +23,10 @@ export class CollectionRequestListComponent implements OnInit {
   constructor(protected collectionService: CollectionService) {}
 
   ngOnInit(): void {
-    this.requests = this.collectionService.getAllRequests();
-    console.log(this.collectionService.getAllRequests());
+    const currentUser = this.collectionService.getCurrentUser();
+    if (currentUser && currentUser.id) {
+      this.requests = this.collectionService.getAllRequests().filter(request => request.userId === currentUser.id);
+    }
   }
 
   showDetails(request: CollectionRequest) {
