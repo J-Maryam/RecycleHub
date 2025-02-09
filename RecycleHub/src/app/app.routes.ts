@@ -10,6 +10,7 @@ import {
 import {
   CollectionRequestFormComponent
 } from './features/collection-request/collection-request-form/collection-request-form.component';
+import {CollectorRequestsComponent} from './features/collector-requests/collector-requests.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
@@ -19,4 +20,6 @@ export const routes: Routes = [
   { path: 'profile', component: ProfileComponent },
   { path: 'my-collections', component: CollectionRequestListComponent },
   { path: 'addCollection', component: CollectionRequestFormComponent },
+  { path: 'pending-collections', component: CollectorRequestsComponent },
+
 ];
