@@ -17,6 +17,6 @@ export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'profile', component: ProfileComponent },
-  { path: 'collections', component: CollectionRequestListComponent },
+  { path: 'my-collections', component: CollectionRequestListComponent },
   { path: 'addCollection', component: CollectionRequestFormComponent },
 ];
