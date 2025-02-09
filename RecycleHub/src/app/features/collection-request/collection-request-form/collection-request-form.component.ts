@@ -35,6 +35,10 @@ export class CollectionRequestFormComponent implements OnInit {
       preferredTime: ['', [Validators.required, this.validateTime]],
       notes: ['']
     });
+
+    this.collectionRequestForm.valueChanges.subscribe(() => {
+      this.validateTotalWeight();
+    });
   }
 
   validateDate(control: any): { [key: string]: boolean } | null {
@@ -98,6 +102,18 @@ export class CollectionRequestFormComponent implements OnInit {
     }
 
     this.collectionRequestForm.patchValue({ wasteTypes: selectedWasteTypes });
+  }
+
+  validateTotalWeight(): void {
+    const wasteTypes = this.collectionRequestForm.value.wasteTypes;
+    const estimatedWeight = this.collectionRequestForm.value.estimatedWeight;
+    const totalWeight = wasteTypes.length * (estimatedWeight / 1000);
+
+    if (totalWeight > 10) {
+      this.collectionRequestForm.controls['estimatedWeight'].setErrors({
+        maxWeightExceeded: true
+      });
+    }
   }
 
 }

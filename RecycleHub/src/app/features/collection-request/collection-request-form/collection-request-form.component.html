@@ -27,10 +27,10 @@
               <label for="estimatedWeight" class="block text-sm font-medium text-gray-700">Estimated Weight (grams)</label>
               <input id="estimatedWeight" type="number" formControlName="estimatedWeight"
                      class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-green-500 focus:border-green-500">
-              <div *ngIf="collectionRequestForm.get('estimatedWeight')?.hasError('min')"
-                   class="text-sm text-red-600 mt-1">
-                Minimum weight is 1000g.
+              <div *ngIf="collectionRequestForm.get('estimatedWeight')?.hasError('maxWeightExceeded')" class="text-red-500">
+                Le poids total ne doit pas dépasser 10 kg.
               </div>
+
             </div>
 
             <div>
