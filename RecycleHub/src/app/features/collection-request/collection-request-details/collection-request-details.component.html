@@ -6,7 +6,7 @@
       <p><strong>Date :</strong> {{ request.preferredDate | date:'shortDate' }}</p>
       <p><strong>Type :</strong> {{ request.wasteTypes.join(', ') }}</p>
       <p><strong>Weight :</strong> {{ request.estimatedWeight / 1000 }} kg</p>
-      <p><strong>User ID :</strong> {{ request.userId }}</p>
+      <p><strong>User ID :</strong> {{ collectionService.getUserFullName(request.userId) }}</p>
       <p><strong>Address :</strong> {{ request.collectionAddress }}</p>
       <p><strong>Status :</strong>
         <span [ngClass]="{
