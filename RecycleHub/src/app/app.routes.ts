@@ -10,7 +10,7 @@ import {
 import {
   CollectionRequestFormComponent
 } from './features/collection-request/collection-request-form/collection-request-form.component';
-import {CollectorRequestsComponent} from './features/collector-requests/collector-requests.component';
+import {CollectorRequestsComponent} from './features/collector-requests/pending-requests/collector-requests.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },

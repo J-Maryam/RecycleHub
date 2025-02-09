@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {CollectionService} from '../../core/services/collection-request.service';
-import { CollectionRequest } from '../../shared/models/collection-request.model';
-import {SidebarComponent} from '../../shared/components/sidebar/sidebar.component';
-import {NavbarComponent} from '../../shared/components/navbar/navbar.component';
+import {CollectionService} from '../../../core/services/collection-request.service';
+import { CollectionRequest } from '../../../shared/models/collection-request.model';
+import {SidebarComponent} from '../../../shared/components/sidebar/sidebar.component';
+import {NavbarComponent} from '../../../shared/components/navbar/navbar.component';
 import {DatePipe, NgForOf, NgIf} from '@angular/common';
 import Swal from 'sweetalert2';
 
@@ -33,15 +33,6 @@ export class CollectorRequestsComponent implements OnInit {
     this.collectionService.updateRequest(request);
     this.ngOnInit();
   }
-
-  // confirmAcceptRequest(request: any) {
-  //   const confirmation = confirm(`Êtes-vous sûr de vouloir accepter la demande #${request.id} ?`);
-  //
-  //   if (confirmation) {
-  //     this.acceptRequest(request);
-  //   }
-  // }
-
 
   confirmAcceptRequest(request: any) {
     Swal.fire({
