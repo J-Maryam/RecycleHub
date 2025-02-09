@@ -10,21 +10,21 @@
       <div class="bg-white rounded-lg shadow-md p-6 max-w-xl mx-auto">
         <h2 class="text-2xl font-semibold text-gray-800 mb-6">New Collection Request</h2>
         <form [formGroup]="collectionRequestForm" (ngSubmit)="onSubmit()" class="space-y-4">
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Types of Waste</label>
+            <div class="flex flex-wrap gap-4 mt-2">
+              <div *ngFor="let waste of wasteTypes; let i = index" class="flex items-center">
+                <input type="checkbox" [value]="waste" (change)="onWasteTypeChange($event)"
+                       [checked]="collectionRequestForm.value.wasteTypes.includes(waste)"
+                       class="mr-2">
+                <label>{{ waste }}</label>
+              </div>
+            </div>
+          </div>
+
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label for="wasteType" class="block text-sm font-medium text-gray-700">Type of Waste</label>
-              <select id="wasteType" formControlName="wasteType"
-                      class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-green-500 focus:border-green-500">
-                <option value="plastic">Plastic</option>
-                <option value="glass">Glass</option>
-                <option value="paper">Paper</option>
-                <option value="metal">Metal</option>
-              </select>
-            </div>
-
-            <div>
-              <label for="estimatedWeight" class="block text-sm font-medium text-gray-700">Estimated Weight
-                (grams)</label>
+              <label for="estimatedWeight" class="block text-sm font-medium text-gray-700">Estimated Weight (grams)</label>
               <input id="estimatedWeight" type="number" formControlName="estimatedWeight"
                      class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-green-500 focus:border-green-500">
               <div *ngIf="collectionRequestForm.get('estimatedWeight')?.hasError('min')"
@@ -32,12 +32,12 @@
                 Minimum weight is 1000g.
               </div>
             </div>
-          </div>
 
-          <div>
-            <label for="collectionAddress" class="block text-sm font-medium text-gray-700">Collection Address</label>
-            <input id="collectionAddress" type="text" formControlName="collectionAddress"
-                   class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-green-500 focus:border-green-500">
+            <div>
+              <label for="collectionAddress" class="block text-sm font-medium text-gray-700">Collection Address</label>
+              <input id="collectionAddress" type="text" formControlName="collectionAddress"
+                     class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-green-500 focus:border-green-500">
+            </div>
           </div>
 
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">

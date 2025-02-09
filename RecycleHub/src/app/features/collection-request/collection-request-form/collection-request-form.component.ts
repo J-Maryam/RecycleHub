@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CollectionService } from '../../../core/services/collection-request.service';
 import { CollectionRequest } from '../../../shared/models/collection-request.model';
-import { NgIf } from '@angular/common';
+import {NgForOf, NgIf} from '@angular/common';
 import { SidebarComponent } from '../../../shared/components/sidebar/sidebar.component';
 import { NavbarComponent } from '../../../shared/components/navbar/navbar.component';
+import {WasteType} from '../../../shared/models/waste-type.enum';
 
 @Component({
   selector: 'app-collection-request-form',
@@ -14,18 +15,20 @@ import { NavbarComponent } from '../../../shared/components/navbar/navbar.compon
     ReactiveFormsModule,
     NgIf,
     SidebarComponent,
-    NavbarComponent
+    NavbarComponent,
+    NgForOf
   ],
   styleUrls: ['./collection-request-form.component.css']
 })
 export class CollectionRequestFormComponent implements OnInit {
   collectionRequestForm!: FormGroup;
+  wasteTypes = Object.values(WasteType);
 
   constructor(private fb: FormBuilder, private collectionRequestService: CollectionService) {}
 
   ngOnInit(): void {
     this.collectionRequestForm = this.fb.group({
-      wasteType: ['', Validators.required],
+      wasteTypes: [[], Validators.required],
       estimatedWeight: ['', [Validators.required, Validators.min(1000)]],
       collectionAddress: ['', Validators.required],
       preferredDate: ['', [Validators.required, this.validateDate]],
@@ -63,7 +66,7 @@ export class CollectionRequestFormComponent implements OnInit {
       const newRequest: CollectionRequest = {
         id: new Date().getTime(),
         userId: currentUser.id,
-        wasteTypes: [this.collectionRequestForm.value.wasteType],
+        wasteTypes: this.collectionRequestForm.value.wasteTypes,
         ...this.collectionRequestForm.value,
         status: 'pending',
         createdAt: new Date(),
@@ -75,4 +78,20 @@ export class CollectionRequestFormComponent implements OnInit {
       this.collectionRequestForm.reset();
     }
   }
+
+  onWasteTypeChange(event: any) {
+    const selectedWasteTypes: string[] = this.collectionRequestForm.value.wasteTypes || [];
+
+    if (event.target.checked) {
+      selectedWasteTypes.push(event.target.value);
+    } else {
+      const index = selectedWasteTypes.indexOf(event.target.value);
+      if (index > -1) {
+        selectedWasteTypes.splice(index, 1);
+      }
+    }
+
+    this.collectionRequestForm.patchValue({ wasteTypes: selectedWasteTypes });
+  }
+
 }
