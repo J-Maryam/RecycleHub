@@ -4,6 +4,7 @@ import { CollectionRequest } from '../../shared/models/collection-request.model'
 import {SidebarComponent} from '../../shared/components/sidebar/sidebar.component';
 import {NavbarComponent} from '../../shared/components/navbar/navbar.component';
 import {DatePipe, NgForOf, NgIf} from '@angular/common';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-collector-requests',
@@ -33,12 +34,31 @@ export class CollectorRequestsComponent implements OnInit {
     this.ngOnInit();
   }
 
-  confirmAcceptRequest(request: any) {
-    const confirmation = confirm(`Êtes-vous sûr de vouloir accepter la demande #${request.id} ?`);
+  // confirmAcceptRequest(request: any) {
+  //   const confirmation = confirm(`Êtes-vous sûr de vouloir accepter la demande #${request.id} ?`);
+  //
+  //   if (confirmation) {
+  //     this.acceptRequest(request);
+  //   }
+  // }
 
-    if (confirmation) {
-      this.acceptRequest(request);
-    }
+
+  confirmAcceptRequest(request: any) {
+    Swal.fire({
+      title: "Accepter cette demande ?",
+      text: `Êtes-vous sûr de vouloir accepter la demande #${request.id} ?`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#4CAF50",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Oui, accepter ✅",
+      cancelButtonText: "Annuler ❌"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.acceptRequest(request);
+        Swal.fire("Acceptée !", "La demande a été acceptée avec succès.", "success");
+      }
+    });
   }
 
 }
