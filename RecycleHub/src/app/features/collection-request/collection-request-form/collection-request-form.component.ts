@@ -23,6 +23,7 @@ import {WasteType} from '../../../shared/models/waste-type.enum';
 export class CollectionRequestFormComponent implements OnInit {
   collectionRequestForm!: FormGroup;
   wasteTypes = Object.values(WasteType);
+  isModalOpen = true;
 
   constructor(private fb: FormBuilder, private collectionRequestService: CollectionService) {}
 
@@ -39,6 +40,10 @@ export class CollectionRequestFormComponent implements OnInit {
     this.collectionRequestForm.valueChanges.subscribe(() => {
       this.validateTotalWeight();
     });
+  }
+
+  closeModal() {
+    this.isModalOpen = false;
   }
 
   validateDate(control: any): { [key: string]: boolean } | null {

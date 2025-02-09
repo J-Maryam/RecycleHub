@@ -1,81 +1,77 @@
-<div class="min-h-screen bg-gray-100 flex">
-  <app-sidebar></app-sidebar>
-
-  <div class="flex-1 ml-64">
-    <div class="w-auto px-12 p-4">
-      <app-navbar></app-navbar>
-    </div>
-
-    <div class="px-8">
-      <div class="bg-white rounded-lg shadow-md p-6 max-w-xl mx-auto">
-        <h2 class="text-2xl font-semibold text-gray-800 mb-6">New Collection Request</h2>
-        <form [formGroup]="collectionRequestForm" (ngSubmit)="onSubmit()" class="space-y-4">
-          <div>
-            <label class="block text-sm font-medium text-gray-700">Types of Waste</label>
-            <div class="flex flex-wrap gap-4 mt-2">
-              <div *ngFor="let waste of wasteTypes; let i = index" class="flex items-center">
-                <input type="checkbox" [value]="waste" (change)="onWasteTypeChange($event)"
-                       [checked]="collectionRequestForm.value.wasteTypes.includes(waste)"
-                       class="mr-2">
-                <label>{{ waste }}</label>
-              </div>
-            </div>
+<div *ngIf="isModalOpen"
+     class="fixed inset-0 bg-opacity-100 backdrop-blur-xl flex items-center justify-center z-50 transition-opacity duration-300">
+  <div class="bg-gray-200 rounded-lg shadow-lg p-6 w-1/2">
+    <h2 class="text-2xl font-semibold text-gray-800 mb-6">New Collection Request</h2>
+    <form [formGroup]="collectionRequestForm" (ngSubmit)="onSubmit()" class="space-y-4">
+      <div>
+        <label class="block text-sm font-medium text-gray-700">Types of Waste</label>
+        <div class="flex flex-wrap gap-4 mt-2">
+          <div *ngFor="let waste of wasteTypes; let i = index" class="flex items-center">
+            <input type="checkbox" [value]="waste" (change)="onWasteTypeChange($event)"
+                   [checked]="collectionRequestForm.value.wasteTypes.includes(waste)"
+                   class="mr-2">
+            <label>{{ waste }}</label>
           </div>
-
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <label for="estimatedWeight" class="block text-sm font-medium text-gray-700">Estimated Weight (grams)</label>
-              <input id="estimatedWeight" type="number" formControlName="estimatedWeight"
-                     class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-green-500 focus:border-green-500">
-              <div *ngIf="collectionRequestForm.get('estimatedWeight')?.hasError('maxWeightExceeded')" class="text-red-500">
-                Le poids total ne doit pas dépasser 10 kg.
-              </div>
-
-            </div>
-
-            <div>
-              <label for="collectionAddress" class="block text-sm font-medium text-gray-700">Collection Address</label>
-              <input id="collectionAddress" type="text" formControlName="collectionAddress"
-                     class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-green-500 focus:border-green-500">
-            </div>
-          </div>
-
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <label for="preferredDate" class="block text-sm font-medium text-gray-700">Preferred Date</label>
-              <input id="preferredDate" type="date" formControlName="preferredDate"
-                     class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-green-500 focus:border-green-500">
-              <div *ngIf="collectionRequestForm.get('preferredDate')?.hasError('invalidDate')"
-                   class="text-sm text-red-600 mt-1">
-                Date must be in the future.
-              </div>
-            </div>
-
-            <div>
-              <label for="preferredTime" class="block text-sm font-medium text-gray-700">Preferred Time</label>
-              <input id="preferredTime" type="time" formControlName="preferredTime"
-                     class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-green-500 focus:border-green-500"
-                     min="09:00" max="18:00">
-              <div *ngIf="collectionRequestForm.get('preferredTime')?.hasError('invalidTime')
-             && (collectionRequestForm.get('preferredTime')?.touched || collectionRequestForm.get('preferredTime')?.dirty)"
-                   class="text-sm text-red-600 mt-1">
-                Time must be between 09:00 and 18:00.
-              </div>
-            </div>
-          </div>
-
-          <div>
-            <label for="notes" class="block text-sm font-medium text-gray-700">Additional Notes</label>
-            <textarea id="notes" formControlName="notes"
-                      class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-green-500 focus:border-green-500"></textarea>
-          </div>
-
-          <button type="submit" [disabled]="collectionRequestForm.invalid"
-                  class="w-full bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 disabled:bg-gray-400 disabled:cursor-not-allowed">
-            Submit Request
-          </button>
-        </form>
+        </div>
       </div>
-    </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label for="estimatedWeight" class="block text-sm font-medium text-gray-700">Estimated Weight (grams)</label>
+          <input id="estimatedWeight" type="number" formControlName="estimatedWeight"
+                 class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-green-500 focus:border-green-500">
+          <div *ngIf="collectionRequestForm.get('estimatedWeight')?.hasError('maxWeightExceeded')" class="text-red-500">
+            Le poids total ne doit pas dépasser 10 kg.
+          </div>
+
+        </div>
+
+        <div>
+          <label for="collectionAddress" class="block text-sm font-medium text-gray-700">Collection Address</label>
+          <input id="collectionAddress" type="text" formControlName="collectionAddress"
+                 class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-green-500 focus:border-green-500">
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label for="preferredDate" class="block text-sm font-medium text-gray-700">Preferred Date</label>
+          <input id="preferredDate" type="date" formControlName="preferredDate"
+                 class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-green-500 focus:border-green-500">
+          <div *ngIf="collectionRequestForm.get('preferredDate')?.hasError('invalidDate')"
+               class="text-sm text-red-600 mt-1">
+            Date must be in the future.
+          </div>
+        </div>
+
+        <div>
+          <label for="preferredTime" class="block text-sm font-medium text-gray-700">Preferred Time</label>
+          <input id="preferredTime" type="time" formControlName="preferredTime"
+                 class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-green-500 focus:border-green-500"
+                 min="09:00" max="18:00">
+          <div *ngIf="collectionRequestForm.get('preferredTime')?.hasError('invalidTime')
+             && (collectionRequestForm.get('preferredTime')?.touched || collectionRequestForm.get('preferredTime')?.dirty)"
+               class="text-sm text-red-600 mt-1">
+            Time must be between 09:00 and 18:00.
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <label for="notes" class="block text-sm font-medium text-gray-700">Additional Notes</label>
+        <textarea id="notes" formControlName="notes"
+                  class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-green-500 focus:border-green-500"></textarea>
+      </div>
+      <div class="flex space-x-4 mt-4">
+        <button type="submit" [disabled]="collectionRequestForm.invalid"
+                class="w-full bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 disabled:bg-gray-400 disabled:cursor-not-allowed">
+          Submit Request
+        </button>
+
+        <button (click)="closeModal()" class="bg-red-500 text-white py-2 px-4 rounded-md">
+          Fermer
+        </button>
+      </div>
+    </form>
   </div>
 </div>

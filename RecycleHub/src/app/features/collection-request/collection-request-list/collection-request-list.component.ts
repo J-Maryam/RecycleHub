@@ -6,12 +6,13 @@ import {CollectionRequest} from '../../../shared/models/collection-request.model
 import {CollectionService} from '../../../core/services/collection-request.service';
 import {CollectionRequestDetailsComponent} from '../collection-request-details/collection-request-details.component';
 import {CollectionRequestUpdateComponent} from '../collection-request-update/collection-request-update.component';
+import {CollectionRequestFormComponent} from '../collection-request-form/collection-request-form.component';
 
 @Component({
   selector: 'app-collection-request-list',
   templateUrl: './collection-request-list.component.html',
   standalone: true,
-  imports: [DatePipe, NgForOf, SidebarComponent, NavbarComponent, NgClass, NgIf, CollectionRequestDetailsComponent, CollectionRequestUpdateComponent],
+  imports: [DatePipe, NgForOf, SidebarComponent, NavbarComponent, NgClass, NgIf, CollectionRequestDetailsComponent, CollectionRequestUpdateComponent, CollectionRequestFormComponent],
   styleUrls: ['./collection-request-list.component.css']
 })
 export class CollectionRequestListComponent implements OnInit {
@@ -19,6 +20,7 @@ export class CollectionRequestListComponent implements OnInit {
   selectedRequest: CollectionRequest | null = null;
   editMode = false;
   requestToEdit: CollectionRequest | null = null;
+  isModalOpen = false;
 
   constructor(protected collectionService: CollectionService) {}
 
@@ -27,6 +29,14 @@ export class CollectionRequestListComponent implements OnInit {
     if (currentUser && currentUser.id) {
       this.requests = this.collectionService.getAllRequests().filter(request => request.userId === currentUser.id);
     }
+  }
+
+  openNewRequestModal() {
+    this.isModalOpen = true;
+  }
+
+  closeModal() {
+    this.isModalOpen = false;
   }
 
   showDetails(request: CollectionRequest) {
