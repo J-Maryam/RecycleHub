@@ -27,12 +27,12 @@
           </div>
 
           <div class="flex flex-col justify-center items-center mt-4 space-y-2">
-            <button (click)="validateRequest(request.id)"
+            <button (click)="confirmAction(request.id, 'validate')"
                     class="px-4 py-2 bg-green-600 text-white font-semibold rounded-lg shadow-md hover:bg-green-700 transition">
               ✅ Valider la collecte
             </button>
 
-            <button (click)="rejectRequest(request.id)"
+            <button (click)="confirmAction(request.id, 'reject')"
                     class="px-4 py-2 bg-red-600 text-white font-semibold rounded-lg shadow-md hover:bg-red-700 transition">
               ❌ Rejeter la collecte
             </button>

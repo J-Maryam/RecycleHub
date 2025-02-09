@@ -37,4 +37,14 @@ export class InProgressRequestsComponent implements OnInit {
     this.inProgressRequests = this.collectionService.getInProgressRequestsForCollector();
   }
 
+  confirmAction(requestId: number, action: 'validate' | 'reject') {
+    const message = action === 'validate'
+      ? "Voulez-vous vraiment valider cette collecte ?"
+      : "Voulez-vous vraiment rejeter cette collecte ?";
+
+    if (confirm(message)) {
+      action === 'validate' ? this.validateRequest(requestId) : this.rejectRequest(requestId);
+    }
+  }
+
 }
