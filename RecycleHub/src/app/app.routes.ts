@@ -12,6 +12,9 @@ import {
 } from './features/collection-request/collection-request-form/collection-request-form.component';
 import {CollectorRequestsComponent} from './features/collector-requests/pending-requests/collector-requests.component';
 import {OccupiedRequestsComponent} from './features/collector-requests/occupied-requests/occupied-requests.component';
+import {
+  InProgressRequestsComponent
+} from './features/collector-requests/in-progress-requests/in-progress-requests.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
@@ -22,5 +25,6 @@ export const routes: Routes = [
   { path: 'my-collections', component: CollectionRequestListComponent },
   { path: 'addCollection', component: CollectionRequestFormComponent },
   { path: 'pending-collections', component: CollectorRequestsComponent },
-  { path: 'occupied-collections', component: OccupiedRequestsComponent }
+  { path: 'occupied-collections', component: OccupiedRequestsComponent },
+  { path: 'in-progress-collections', component: InProgressRequestsComponent }
 ];
