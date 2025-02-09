@@ -20,7 +20,7 @@ export class CollectionRequestListComponent implements OnInit {
   editMode = false;
   requestToEdit: CollectionRequest | null = null;
 
-  constructor(private collectionService: CollectionService) {}
+  constructor(protected collectionService: CollectionService) {}
 
   ngOnInit(): void {
     this.requests = this.collectionService.getAllRequests();

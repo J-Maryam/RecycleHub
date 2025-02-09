@@ -28,7 +28,7 @@
             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ request.preferredDate | date:'shortDate' }}</td>
             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ request.wasteTypes }}</td>
             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ request.estimatedWeight / 1000 }} kg</td>
-            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ request.userId }}</td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ collectionService.getUserFullName(request.userId) }}</td>
             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ request.collectionAddress }}</td>
             <td class="px-6 py-4 whitespace-nowrap">
                 <span [ngClass]="{

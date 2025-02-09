@@ -1,17 +1,22 @@
-import {Injectable} from '@angular/core';
-import {CollectionRequest} from '../../shared/models/collection-request.model';
+import { Injectable } from '@angular/core';
+import { CollectionRequest } from '../../shared/models/collection-request.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CollectionService {
   private storageKey = 'collectionRequests';
+  private usersKey = 'users';
 
-  constructor() {
-  }
+  constructor() {}
 
   getCurrentUser() {
     return JSON.parse(localStorage.getItem('currentUser') || '{}');
+  }
+
+  getUserById(userId: number) {
+    const users = JSON.parse(localStorage.getItem(this.usersKey) || '[]');
+    return users.find((user: { id: number; }) => user.id === userId);
   }
 
   getAllRequests(): CollectionRequest[] {
@@ -49,5 +54,10 @@ export class CollectionService {
 
   private saveToLocalStorage(requests: CollectionRequest[]): void {
     localStorage.setItem(this.storageKey, JSON.stringify(requests));
+  }
+
+  getUserFullName(userId: number): string {
+    const user = this.getUserById(userId);
+    return user ? `${user.firstName} ${user.lastName}` : 'Utilisateur inconnu';
   }
 }
