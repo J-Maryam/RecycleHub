@@ -26,7 +26,8 @@ export class RegisterComponent implements OnInit {
       confirmPassword: ['', Validators.required],
       phone: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]],
       address: ['', Validators.required],
-      birthDate: ['', Validators.required]
+      birthDate: ['', Validators.required],
+      role: ['particulier']
     }, { validators: this.passwordMatchValidator });
   }
 
@@ -87,4 +88,5 @@ export class RegisterComponent implements OnInit {
         return false;
     }
   }
+
 }

@@ -11,7 +11,7 @@ export class AuthService {
     if (this.checkEmailExists(user.email)) {
       return false;
     }
-
+    user.role = 'particulier';
     user.id = Date.now().toString();
     const users = this.getAllUsers();
     users.push(user);
@@ -53,5 +53,21 @@ export class AuthService {
     const user = localStorage.getItem('currentUser');
     return user ? JSON.parse(user) : null;
   }
+
+  isCollecteur(): boolean {
+    const currentUser = this.getCurrentUser();
+    return currentUser?.role === 'collecteur';
+  }
+
+  isParticulier(): boolean {
+    const currentUser = this.getCurrentUser();
+    return currentUser?.role === 'particulier';
+  }
+
+  addCollecteur(user: User): boolean {
+    user.role = 'collecteur';
+    return this.register(user);
+  }
+
 
 }
