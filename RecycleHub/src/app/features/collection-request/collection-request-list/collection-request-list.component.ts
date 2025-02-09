@@ -5,17 +5,20 @@ import { NavbarComponent } from '../../../shared/components/navbar/navbar.compon
 import {CollectionRequest} from '../../../shared/models/collection-request.model';
 import {CollectionService} from '../../../core/services/collection-request.service';
 import {CollectionRequestDetailsComponent} from '../collection-request-details/collection-request-details.component';
+import {CollectionRequestUpdateComponent} from '../collection-request-update/collection-request-update.component';
 
 @Component({
   selector: 'app-collection-request-list',
   templateUrl: './collection-request-list.component.html',
   standalone: true,
-  imports: [DatePipe, NgForOf, SidebarComponent, NavbarComponent, NgClass, NgIf, CollectionRequestDetailsComponent],
+  imports: [DatePipe, NgForOf, SidebarComponent, NavbarComponent, NgClass, NgIf, CollectionRequestDetailsComponent, CollectionRequestUpdateComponent],
   styleUrls: ['./collection-request-list.component.css']
 })
 export class CollectionRequestListComponent implements OnInit {
   requests: CollectionRequest[] = [];
   selectedRequest: CollectionRequest | null = null;
+  editMode = false;
+  requestToEdit: CollectionRequest | null = null;
 
   constructor(private collectionService: CollectionService) {}
 
@@ -42,4 +45,14 @@ export class CollectionRequestListComponent implements OnInit {
     }
   }
 
+  editRequest(request: CollectionRequest) {
+    this.requestToEdit = { ...request };
+    this.editMode = true;
+  }
+
+  cancelEdit() {
+    this.editMode = false;
+    this.requestToEdit = null;
+    this.requests = this.collectionService.getAllRequests();
+  }
 }

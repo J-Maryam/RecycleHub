@@ -33,6 +33,16 @@ export class CollectionService {
     this.saveToLocalStorage(requests);
   }
 
+  updateRequest(updatedRequest: CollectionRequest): void {
+    let requests = this.getAllRequests();
+    const index = requests.findIndex(request => request.id === updatedRequest.id);
+    if (index !== -1) {
+      updatedRequest.updatedAt = new Date();
+      requests[index] = updatedRequest;
+      this.saveToLocalStorage(requests);
+    }
+  }
+
   private saveToLocalStorage(requests: CollectionRequest[]): void {
     localStorage.setItem(this.storageKey, JSON.stringify(requests));
   }
