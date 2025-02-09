@@ -7,6 +7,39 @@ import { User } from '../../shared/models/user.model';
 export class AuthService {
   private localStorageKey = 'users';
 
+  private preRegisteredCollecteurs: User[] = [
+    {
+      id: '1',
+      email: 'collecteur1@gmail.com',
+      password: '12345678',
+      firstName: 'Jean',
+      lastName: 'Dupont',
+      address: '123 Rue de Paris',
+      phone: '0123456789',
+      birthDate: new Date('1990-01-01'),
+      role: 'collecteur'
+    },
+
+  ];
+
+  constructor() {
+    this.initializeUsers();
+  }
+
+  private initializeUsers() {
+    const users = this.getAllUsers();
+
+    if (users.length === 0) {
+      this.addPreRegisteredCollecteurs();
+    }
+  }
+
+  private addPreRegisteredCollecteurs() {
+    const users = this.getAllUsers();
+    users.push(...this.preRegisteredCollecteurs);
+    localStorage.setItem(this.localStorageKey, JSON.stringify(users));
+  }
+
   register(user: User): boolean {
     if (this.checkEmailExists(user.email)) {
       return false;
@@ -48,26 +81,5 @@ export class AuthService {
     const users = localStorage.getItem(this.localStorageKey);
     return users ? JSON.parse(users) : [];
   }
-
-  getCurrentUser(): User | null {
-    const user = localStorage.getItem('currentUser');
-    return user ? JSON.parse(user) : null;
-  }
-
-  isCollecteur(): boolean {
-    const currentUser = this.getCurrentUser();
-    return currentUser?.role === 'collecteur';
-  }
-
-  isParticulier(): boolean {
-    const currentUser = this.getCurrentUser();
-    return currentUser?.role === 'particulier';
-  }
-
-  addCollecteur(user: User): boolean {
-    user.role = 'collecteur';
-    return this.register(user);
-  }
-
 
 }
