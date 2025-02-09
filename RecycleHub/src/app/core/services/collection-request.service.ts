@@ -114,4 +114,8 @@ export class CollectionService {
     }
   }
 
+  getInProgressRequestsForCollector(): CollectionRequest[] {
+    return this.getAllRequests().filter(request => request.status === 'in-progress');
+  }
+
 }
