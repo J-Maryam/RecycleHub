@@ -30,4 +30,16 @@ export class CollectionRequestListComponent implements OnInit {
   closeDetails() {
     this.selectedRequest = null;
   }
+
+  deleteRequest(requestId: number): void {
+    this.collectionService.deleteRequest(requestId);
+    this.requests = this.collectionService.getAllRequests();
+  }
+
+  confirmDelete(requestId: number): void {
+    if (confirm('Are you sure you want to delete this request?')) {
+      this.deleteRequest(requestId);
+    }
+  }
+
 }

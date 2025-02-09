@@ -27,6 +27,12 @@ export class CollectionService {
     this.saveToLocalStorage(requests);
   }
 
+  deleteRequest(requestId: number): void {
+    let requests = this.getAllRequests();
+    requests = requests.filter(request => request.id !== requestId);
+    this.saveToLocalStorage(requests);
+  }
+
   private saveToLocalStorage(requests: CollectionRequest[]): void {
     localStorage.setItem(this.storageKey, JSON.stringify(requests));
   }
