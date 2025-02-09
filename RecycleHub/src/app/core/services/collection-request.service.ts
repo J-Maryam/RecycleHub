@@ -89,4 +89,14 @@ export class CollectionService {
     return pendingRequests.length < 3;
   }
 
+  getPendingRequestsForCollector(): CollectionRequest[] {
+    // const currentUser = this.getCurrentUser();
+    // if (!currentUser || !currentUser.city) return [];
+
+    return this.getAllRequests().filter(request =>
+      request.status === 'pending'
+      // this.getUserById(request.userId)?.city === currentUser.city
+    );
+  }
+
 }
