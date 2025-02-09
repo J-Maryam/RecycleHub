@@ -26,16 +26,27 @@ export class CollectionService {
 
   addRequest(request: CollectionRequest): void {
     const requests = this.getAllRequests();
+    const currentUser = this.getCurrentUser();
+
+    if (!currentUser || !currentUser.id) {
+      console.error("Utilisateur non connecté");
+      return;
+    }
+
+    if (!this.canCreateNewRequest(currentUser.id)) {
+      console.error("Vous avez déjà 3 demandes en cours. Veuillez attendre la validation ou le rejet.");
+      return;
+    }
+
     request.id = new Date().getTime();
     request.createdAt = new Date();
     request.updatedAt = new Date();
+    request.userId = currentUser.id;
+
     if (typeof request.wasteTypes === 'string') {
       request.wasteTypes = [request.wasteTypes];
     }
-    const currentUser = this.getCurrentUser();
-    if (currentUser && currentUser.id) {
-      request.userId = currentUser.id;
-    }
+
     requests.push(request);
     this.saveToLocalStorage(requests);
   }
@@ -68,4 +79,14 @@ export class CollectionService {
     const user = this.getUserById(userId);
     return user ? `${user.firstName} ${user.lastName}` : 'Utilisateur inconnu';
   }
+
+  canCreateNewRequest(userId: number): boolean {
+    const requests = this.getAllRequests();
+    const pendingRequests = requests.filter(req =>
+      req.userId === userId && req.status !== 'validated' && req.status !== 'rejected'
+    );
+
+    return pendingRequests.length < 3;
+  }
+
 }

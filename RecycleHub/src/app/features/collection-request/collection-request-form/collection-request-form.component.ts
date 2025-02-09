@@ -63,6 +63,12 @@ export class CollectionRequestFormComponent implements OnInit {
         return;
       }
 
+      const canCreateRequest = this.collectionRequestService.canCreateNewRequest(currentUser.id);
+      if (!canCreateRequest) {
+        alert('Vous avez déjà 3 demandes en cours ou en attente. Veuillez attendre la validation ou le rejet d\'une demande avant d\'en faire une nouvelle.');
+        return;
+      }
+
       const newRequest: CollectionRequest = {
         id: new Date().getTime(),
         userId: currentUser.id,
