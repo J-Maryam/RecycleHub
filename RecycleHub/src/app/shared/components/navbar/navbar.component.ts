@@ -20,7 +20,7 @@ export class NavbarComponent implements OnInit {
     role: ''
   };
 
-  constructor(private authService: AuthService) {}
+  // constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
     const storedUser = localStorage.getItem('currentUser');
