@@ -32,4 +32,13 @@ export class CollectorRequestsComponent implements OnInit {
     this.collectionService.updateRequest(request);
     this.ngOnInit();
   }
+
+  confirmAcceptRequest(request: any) {
+    const confirmation = confirm(`Êtes-vous sûr de vouloir accepter la demande #${request.id} ?`);
+
+    if (confirmation) {
+      this.acceptRequest(request);
+    }
+  }
+
 }
