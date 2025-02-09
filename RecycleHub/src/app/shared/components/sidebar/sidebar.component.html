@@ -9,9 +9,14 @@
       <span>Dashboard</span>
     </a>
 
-    <a routerLink="/my-collections" routerLinkActive="active" class="nav-item">
+    <a *ngIf="userRole === 'particulier'" routerLink="/my-collections" routerLinkActive="active" class="nav-item">
       <i class="fas fa-recycle"></i>
       <span>My Collections</span>
+    </a>
+
+    <a *ngIf="userRole === 'collecteur'" routerLink="/pending-collections" routerLinkActive="active" class="nav-item">
+      <i class="fas fa-recycle"></i>
+      <span class="text-sm">Pending Collections</span>
     </a>
 
     <a routerLink="/profile" routerLinkActive="active" class="nav-item">
