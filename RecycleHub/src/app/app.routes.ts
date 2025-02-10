@@ -17,18 +17,28 @@ import {
 } from './features/collector-requests/in-progress-requests/in-progress-requests.component';
 import {HistoriqueComponent} from './features/historique/historique.component';
 import {PointsSystemComponent} from './features/points-system/points-system.component';
+import {AuthGuard} from './core/guards/auth.guard';
+import {GuestGuard} from './core/guards/guest.guard';
+import {CollectorGuard} from './core/guards/collector.guard';
+import {ParticularGuard} from './core/guards/particular.guard';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
-  { path: 'register', component: RegisterComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'dashboard', component: DashboardComponent },
-  { path: 'profile', component: ProfileComponent },
-  { path: 'my-collections', component: CollectionRequestListComponent },
-  { path: 'addCollection', component: CollectionRequestFormComponent },
-  { path: 'pending-collections', component: CollectorRequestsComponent },
-  { path: 'occupied-collections', component: OccupiedRequestsComponent },
-  { path: 'in-progress-collections', component: InProgressRequestsComponent },
-  { path: 'historique', component: HistoriqueComponent },
-  { path: 'my-points', component: PointsSystemComponent }
+  { path: 'register', component: RegisterComponent, canActivate: [GuestGuard] },
+  { path: 'login', component: LoginComponent, canActivate: [GuestGuard] },
+
+  // Routes accessibles uniquement par les collecteurs
+  { path: 'pending-collections', component: CollectorRequestsComponent, canActivate: [CollectorGuard] },
+  { path: 'occupied-collections', component: OccupiedRequestsComponent, canActivate: [CollectorGuard] },
+  { path: 'in-progress-collections', component: InProgressRequestsComponent, canActivate: [CollectorGuard] },
+
+  // Routes accessibles uniquement par les particuliers
+  { path: 'my-collections', component: CollectionRequestListComponent, canActivate: [ParticularGuard] },
+  { path: 'addCollection', component: CollectionRequestFormComponent, canActivate: [ParticularGuard] },
+
+  // Routes génériques protégées
+  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
+  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
+  { path: 'historique', component: HistoriqueComponent, canActivate: [AuthGuard] },
+  { path: 'my-points', component: PointsSystemComponent, canActivate: [AuthGuard] }
 ];
