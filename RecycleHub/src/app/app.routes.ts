@@ -16,6 +16,7 @@ import {
   InProgressRequestsComponent
 } from './features/collector-requests/in-progress-requests/in-progress-requests.component';
 import {HistoriqueComponent} from './features/historique/historique.component';
+import {PointsSystemComponent} from './features/points-system/points-system.component';
 
 export const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
@@ -28,5 +29,6 @@ export const routes: Routes = [
   { path: 'pending-collections', component: CollectorRequestsComponent },
   { path: 'occupied-collections', component: OccupiedRequestsComponent },
   { path: 'in-progress-collections', component: InProgressRequestsComponent },
-  { path: 'historique', component: HistoriqueComponent }
+  { path: 'historique', component: HistoriqueComponent },
+  { path: 'my-points', component: PointsSystemComponent }
 ];

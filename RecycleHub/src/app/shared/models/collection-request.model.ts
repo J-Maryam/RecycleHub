@@ -12,4 +12,5 @@ export interface CollectionRequest {
   images?: string[];
   createdAt: Date;
   updatedAt: Date;
+  earnedPoints?: number;
 }

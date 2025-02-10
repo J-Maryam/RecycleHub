@@ -1,0 +1,24 @@
+<div class="dashboard-container flex min-h-screen bg-gradient-to-r from-teal-50 to-blue-50">
+  <app-sidebar class="w-64 bg-white shadow-lg border-r border-gray-200"></app-sidebar>
+
+  <div class="main-content flex-1 p-8 space-y-8">
+    <app-navbar></app-navbar>
+
+    <div class="points-container bg-white p-8 rounded-xl shadow-lg">
+      <h2 class="text-4xl font-bold text-gray-800 mb-6">Vos points : {{ points }}</h2>
+      <p class="text-xl text-gray-500 mb-4">Convertissez vos points en bons d'achat.</p>
+
+      <div class="rewards grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        <div *ngFor="let option of rewardOptions" class="reward-card bg-gray-50 rounded-lg shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 ease-in-out">
+          <div class="p-6">
+            <p class="text-lg font-medium text-gray-600 mb-4">{{ option.reward }}</p>
+            <button (click)="convert(option.cost)" [disabled]="points < option.cost"
+                    class="w-full py-2 px-4 bg-gradient-to-r from-green-400 to-green-600 text-white rounded-lg font-semibold hover:bg-green-700 transition-colors disabled:bg-gray-400 disabled:cursor-not-allowed">
+              Convertir ({{ option.cost }} points)
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

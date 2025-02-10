@@ -17,7 +17,8 @@ export class AuthService {
       address: '123 Rue de Paris',
       phone: '0123456789',
       birthDate: new Date('1990-01-01'),
-      role: 'collecteur'
+      role: 'collecteur',
+      points: 0
     },
 
   ];
